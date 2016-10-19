@@ -1,0 +1,11 @@
+
+<ul class="form-list" id="payment_form_tpay" style="display: none">
+  <li>
+    <p><?php echo Mage::helper('tpay')->__('Po wyborze Tpay.com, zostanie wykonane przekierowanie na bezpieczny formularz transakcyjny.') ?></p>
+    <?php if ($src = $this->getPaymentImageSrc()): ?>
+      <img src="<?php echo $src ?>"/>
+		<?php Mage::app()->getStore()->setCurrentCurrencyCode("PLN"); ?>
+    <?php endif ?>
+  </li>
+</ul>
+
