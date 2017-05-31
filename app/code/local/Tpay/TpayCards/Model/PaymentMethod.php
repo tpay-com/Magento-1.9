@@ -1,17 +1,19 @@
 <?php
 
-class Tpay_Tpay_Model_PaymentMethod extends Mage_Payment_Model_Method_Abstract
+require_once (Mage::getBaseDir('lib') . '/tpay/_class_tpay/Validate.php');
+
+class Tpay_TpayCards_Model_PaymentMethod extends Mage_Payment_Model_Method_Abstract
 {
 
-    protected $_code = 'tpay';
-    protected $_formBlockType = 'tpay/form';
+    protected $_code = 'tpayCards';
+    protected $_formBlockType = 'tpayCards/form';
     protected $_canUseInternal = false;
     protected $_canUseCheckout = false;
     protected $_order;
 
     public function __construct()
     {
-        if (!(Mage::app()->getStore()->getCurrentCurrencyCode() === 'PLN')) {
+        if (!($this->getConfigData('MIDType')) && Mage::app()->getStore()->getCurrentCurrencyCode() === 'PLN') {
             $this->_canUseInternal = false;
             $this->_canUseCheckout = false;
         } else {
@@ -22,7 +24,7 @@ class Tpay_Tpay_Model_PaymentMethod extends Mage_Payment_Model_Method_Abstract
 
     public function getOrderPlaceRedirectUrl()
     {
-        return Mage::getUrl('tpay/processing/redirect');
+        return Mage::getUrl('tpayCards/processing/redirect');
     }
 
     public function getRedirectUrl()
@@ -35,41 +37,36 @@ class Tpay_Tpay_Model_PaymentMethod extends Mage_Payment_Model_Method_Abstract
         return $this->getConfigData('tran_ip');
     }
 
-    public function getBasicConfigData()
+    public function getApiConfigData()
     {
         return array(
-            'id'  => $this->getConfigData('id'),
-            'kodp' => $this->getConfigData('kodp'),
+            'key'  => $this->getConfigData('apiKey'),
+            'pass' => $this->getConfigData('apiPass'),
+            'code' => $this->getConfigData('verifCode'),
+            'hash' => $this->getConfigData('hashType'),
         );
     }
 
     public function getRedirectionFormData()
     {
-
         $billing = $this->getOrder()->getBillingAddress();
         $order_id = $this->getOrder()->getRealOrderId();
         $crc = base64_encode($order_id);
         $amount = round($this->getOrder()->getGrandTotal(), 2);
-        $md5sum = hash('md5', $this->getConfigData('id') . $amount . $crc . $this->getConfigData('kodp'));
+        $currency = \tpay\Validate::validateCardCurrency(Mage::app()->getStore()->getCurrentCurrencyCode());
 
         return array(
-            'id'           => $this->getConfigData('id'),
             'kwota'        => $amount,
-            'opis'         => Mage::helper('tpay')->__('Zamówienie: %s', $this->getOrder()->getRealOrderId()),
+            'currency'     => $currency,
+            'opis'         => Mage::helper('tpayCards')->__('Zamówienie: %s', $this->getOrder()->getRealOrderId()),
             'email'        => $billing->getEmail() ? $billing->getEmail() : $this->getOrder()->getCustomerEmail(),
             'imie'         => $billing->getFirstname(),
             'nazwisko'     => $billing->getLastname(),
             'crc'          => $crc,
-            'md5sum'       => $md5sum,
             'pow_url'      => Mage::getUrl('checkout/onepage/success/'),
             'pow_url_blad' => Mage::getUrl('customer/account/'),
-            'wyn_url'      => Mage::getUrl('tpay/notification'),
-            'kraj'         => $billing->getCountryModel()->getIso2Code(),
-            'jezyk'        => Mage::app()->getLocale()->getLocaleCode(),
-            'miasto'       => $billing->getCity(),
-            'kod'          => $billing->getPostcode(),
-            'adres'        => $billing->getStreet(-1),
-            'telefon'      => $billing->getTelephone(),
+            'wyn_url'      => Mage::getUrl('tpayCards/notification'),
+            'jezyk'        => $billing->getCountryModel()->getIso2Code(),
         );
     }
 

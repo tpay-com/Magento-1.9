@@ -1,0 +1,12 @@
+<?xml version="1.1"?>
+<config>
+  <modules>
+    <Tpay_TpayCards>
+      <active>true</active>
+      <codePool>local</codePool>
+      <depends>
+        <Mage_Payment />
+      </depends>
+    </Tpay_TpayCards>
+  </modules>
+</config>

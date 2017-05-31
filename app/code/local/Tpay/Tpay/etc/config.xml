@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Tpay_Tpay>
-      <version>0.0.5</version>
+      <version>1.0.1</version>
     </Tpay_Tpay>
   </modules>
   <global>

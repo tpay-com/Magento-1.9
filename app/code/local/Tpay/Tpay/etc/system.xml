@@ -8,7 +8,7 @@
           <sort_order>670</sort_order>
           <show_in_default>1</show_in_default>
           <show_in_website>1</show_in_website>
-          <show_in_store>0</show_in_store>
+          <show_in_store>1</show_in_store>
           <fields>
             <active translate="label">
               <label>Włączony</label>
@@ -17,7 +17,7 @@
               <sort_order>1</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </active>
 			<id translate="label">
               <label>ID sprzedawcy</label>
@@ -25,7 +25,7 @@
               <sort_order>4</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </id>
 			<kodp translate="label">
               <label>Kod potwierdzajacy</label>
@@ -33,7 +33,7 @@
               <sort_order>3</sort_order>
               <show_in_default>1</show_in_default>
               <show_in_website>1</show_in_website>
-              <show_in_store>0</show_in_store>
+              <show_in_store>1</show_in_store>
             </kodp>
 			<order_status translate="label">
 				<label>Status nowego zamówienia</label>
@@ -42,7 +42,7 @@
                 <sort_order>4</sort_order>
                 <show_in_default>1</show_in_default>
                 <show_in_website>1</show_in_website>
-                <show_in_store>0</show_in_store>
+                <show_in_store>1</show_in_store>
               </order_status>						
             <sort_order translate="label">
                 <label>Kolejność sortowania</label>
@@ -50,7 +50,7 @@
                 <sort_order>2</sort_order>
                 <show_in_default>1</show_in_default>
                 <show_in_website>1</show_in_website>
-                <show_in_store>0</show_in_store>
+                <show_in_store>1</show_in_store>
             </sort_order>
 
           </fields>
