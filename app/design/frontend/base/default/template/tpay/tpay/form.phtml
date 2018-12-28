@@ -1,7 +1,7 @@
 
 <ul class="form-list" id="payment_form_tpay" style="display: none">
   <li>
-    <p><?php echo Mage::helper('tpay')->__('You will be redirected to Tpay.com secure page with a form of payment when you place an order.') ?></p>
+    <p><?php echo $this->__('You will be redirected to Tpay.com secure page with a form of payment when you place an order.') ?></p>
     <?php if ($src = $this->getPaymentImageSrc()): ?>
       <img src="<?php echo $src ?>"/>
 		<?php Mage::app()->getStore()->setCurrentCurrencyCode("PLN"); ?>
