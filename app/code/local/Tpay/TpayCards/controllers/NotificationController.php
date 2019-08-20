@@ -14,8 +14,9 @@ class Tpay_TpayCards_NotificationController extends Mage_Core_Controller_Front_A
         $config = $methodInstance->getApiConfigData();
         $CardsApi = new \tpay\PaymentCard($config['key'], $config['pass'], $config['code'], 'sha1', 'tpay');
         $params = $CardsApi->handleNotification();
+        /** @var Mage_Sales_Model_Order $Order */
         $Order = Mage::getModel('sales/order')->loadByIncrementId($order_id);
-        $amount = round($Order->getBaseGrandTotal(), 2);
+        $amount = round($Order->getGrandTotal(), 2);
         $currency = \tpay\Validate::validateCardCurrency($Order->getOrderCurrencyCode());
         $CardsApi->validateSign($params['sign'],
             $params['sale_auth'], $params['card'], (float)$amount, $params['date'], 'correct', $currency,
